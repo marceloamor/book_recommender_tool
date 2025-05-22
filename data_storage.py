@@ -8,6 +8,7 @@ import os
 import json
 import pandas as pd
 from datetime import datetime
+import pickle
 
 class DataStorage:
     def __init__(self, data_dir="data"):
@@ -34,12 +35,24 @@ class DataStorage:
         
         # Create filename with timestamp
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"{self.data_dir}/books_{user_id}_{timestamp}.csv"
+        csv_filename = f"{self.data_dir}/books_{user_id}_{timestamp}.csv"
+        pickle_filename = f"{self.data_dir}/books_{user_id}_{timestamp}.pkl"
         
         try:
-            # Save to CSV
-            books_df.to_csv(filename, index=False)
-            print(f"Saved {len(books_df)} books to {filename}")
+            # Save to CSV for human-readable format
+            books_df.to_csv(csv_filename, index=False)
+            
+            # Save to pickle for preserving complex data types
+            with open(pickle_filename, 'wb') as f:
+                pickle.dump(books_df, f)
+                
+            print(f"Saved {len(books_df)} books to {csv_filename} and {pickle_filename}")
+            
+            # Save a reference to the latest file
+            latest_ref = f"{self.data_dir}/latest_{user_id}.txt"
+            with open(latest_ref, 'w') as f:
+                f.write(f"{timestamp}")
+                
             return True
         except Exception as e:
             print(f"Error saving books: {e}")
@@ -59,22 +72,58 @@ class DataStorage:
         if filename:
             # Load specific file
             try:
-                return pd.read_csv(filename)
+                if filename.endswith('.pkl'):
+                    with open(filename, 'rb') as f:
+                        return pickle.load(f)
+                else:
+                    return pd.read_csv(filename)
             except Exception as e:
                 print(f"Error loading {filename}: {e}")
                 return None
         
         if user_id:
-            # Find latest file for user_id
-            files = [f for f in os.listdir(self.data_dir) if f.startswith(f"books_{user_id}_") and f.endswith(".csv")]
+            # Check if we have a reference to the latest file
+            latest_ref = f"{self.data_dir}/latest_{user_id}.txt"
+            if os.path.exists(latest_ref):
+                try:
+                    with open(latest_ref, 'r') as f:
+                        timestamp = f.read().strip()
+                    
+                    pickle_file = f"{self.data_dir}/books_{user_id}_{timestamp}.pkl"
+                    if os.path.exists(pickle_file):
+                        print(f"Loading data from {pickle_file}")
+                        with open(pickle_file, 'rb') as f:
+                            return pickle.load(f)
+                except Exception as e:
+                    print(f"Error loading latest reference: {e}")
             
-            if not files:
+            # If no reference or loading failed, find latest pickle file
+            pickle_files = [f for f in os.listdir(self.data_dir) 
+                          if f.startswith(f"books_{user_id}_") and f.endswith(".pkl")]
+            
+            if pickle_files:
+                # Sort by timestamp (newest first)
+                pickle_files.sort(reverse=True)
+                latest_file = os.path.join(self.data_dir, pickle_files[0])
+                
+                try:
+                    print(f"Loading data from {latest_file}")
+                    with open(latest_file, 'rb') as f:
+                        return pickle.load(f)
+                except Exception as e:
+                    print(f"Error loading {latest_file}: {e}")
+            
+            # If no pickle files or loading failed, try CSV files
+            csv_files = [f for f in os.listdir(self.data_dir) 
+                       if f.startswith(f"books_{user_id}_") and f.endswith(".csv")]
+            
+            if not csv_files:
                 print(f"No saved data found for user {user_id}")
                 return None
             
             # Sort by timestamp (newest first)
-            files.sort(reverse=True)
-            latest_file = os.path.join(self.data_dir, files[0])
+            csv_files.sort(reverse=True)
+            latest_file = os.path.join(self.data_dir, csv_files[0])
             
             try:
                 print(f"Loading data from {latest_file}")
@@ -93,5 +142,41 @@ class DataStorage:
         Returns:
             List of data files
         """
-        files = [f for f in os.listdir(self.data_dir) if f.endswith(".csv")]
-        return files 
+        files = [f for f in os.listdir(self.data_dir) 
+               if f.endswith(".csv") or f.endswith(".pkl")]
+        return files
+        
+    def analyze_data_structure(self, user_id=None):
+        """
+        Analyze the structure of saved data
+        
+        Args:
+            user_id: Goodreads user ID to analyze data for
+            
+        Returns:
+            Dictionary with data structure information
+        """
+        books_df = self.load_books(user_id=user_id)
+        if books_df is None or books_df.empty:
+            return {"error": "No data found"}
+        
+        # Get basic info
+        info = {
+            "num_books": len(books_df),
+            "columns": list(books_df.columns),
+            "sample_rows": books_df.head(5).to_dict('records'),
+            "missing_values": books_df.isnull().sum().to_dict(),
+            "column_types": {col: str(books_df[col].dtype) for col in books_df.columns}
+        }
+        
+        # Check for specific columns
+        for col in ["title", "author", "genres", "avg_rating", "user_rating"]:
+            if col in books_df.columns:
+                if col == "genres":
+                    # Check structure of genres
+                    sample_genres = books_df[col].head(10).tolist()
+                    info[f"{col}_samples"] = sample_genres
+                else:
+                    info[f"{col}_samples"] = books_df[col].head(10).tolist()
+        
+        return info 

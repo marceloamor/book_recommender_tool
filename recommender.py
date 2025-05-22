@@ -12,6 +12,18 @@ import requests
 from bs4 import BeautifulSoup
 import time
 from tqdm import tqdm
+import logging
+
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("recommender.log"),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
 
 class BookRecommender:
     def __init__(self, user_books_df):
@@ -40,6 +52,7 @@ class BookRecommender:
         
         # Find similar books
         if self.user_books_df.empty or self.book_features_df is None:
+            logger.warning("No user books or feature data available")
             return []
             
         # Get books the user has read and rated highly (4+ stars)
@@ -49,17 +62,21 @@ class BookRecommender:
         ]
         
         if highly_rated.empty:
+            logger.info("No highly rated books found, using all read books")
             # If no highly rated books, use all read books
             highly_rated = self.user_books_df[self.user_books_df["shelf"] == "read"]
             
         if highly_rated.empty:
+            logger.info("No read books found, using all books")
             # If no read books, use all books
             highly_rated = self.user_books_df
+            
+        logger.info(f"Using {len(highly_rated)} books as basis for recommendations")
             
         # Get recommendations based on each highly rated book
         all_recommendations = []
         
-        for _, book in highly_rated.iterrows():
+        for _, book in tqdm(highly_rated.iterrows(), total=len(highly_rated), desc="Finding similar books"):
             similar_books = self._find_similar_books(book, num_recommendations * 2)
             all_recommendations.extend(similar_books)
             
@@ -83,11 +100,13 @@ class BookRecommender:
             if rec["title"].lower() not in user_book_titles
         ]
         
+        logger.info(f"Generated {len(filtered_recommendations)} unique recommendations")
         return filtered_recommendations[:num_recommendations]
     
     def _prepare_data(self):
         """Prepare book data for recommendation"""
         if self.user_books_df.empty:
+            logger.warning("User books DataFrame is empty")
             return
             
         # Enrich data with additional book details
@@ -108,33 +127,60 @@ class BookRecommender:
             
         if "genres" not in all_books.columns:
             all_books["genres"] = [[] for _ in range(len(all_books))]
+            
+        if "description" not in all_books.columns:
+            all_books["description"] = ""
         
         # Create feature vectors for books
         all_books["features"] = all_books["title"].fillna("") + " " + all_books["author"].fillna("")
         
-        # Add genres if available
+        # Add genres if available with higher weight (repeat 3 times)
         all_books["features"] = all_books.apply(
-            lambda row: row["features"] + " " + " ".join(row.get("genres", [])) 
+            lambda row: row["features"] + " " + 
+                        (" ".join(row.get("genres", [])) + " ") * 3
             if isinstance(row.get("genres"), list) else row["features"], 
             axis=1
         )
         
-        # Create TF-IDF vectors
-        tfidf = TfidfVectorizer(stop_words="english")
-        tfidf_matrix = tfidf.fit_transform(all_books["features"])
+        # Add description if available (with lower weight)
+        all_books["features"] = all_books.apply(
+            lambda row: row["features"] + " " + 
+                        (row.get("description", "")[:500] if row.get("description") else ""),
+            axis=1
+        )
         
-        # Calculate similarity matrix
-        self.similarity_matrix = cosine_similarity(tfidf_matrix)
-        self.book_features_df = all_books
+        logger.info("Creating TF-IDF vectors")
+        # Create TF-IDF vectors
+        tfidf = TfidfVectorizer(
+            stop_words="english", 
+            max_features=5000,
+            ngram_range=(1, 2)  # Use both unigrams and bigrams
+        )
+        
+        # Handle empty features
+        all_books["features"] = all_books["features"].fillna("")
+        
+        # Transform features to TF-IDF matrix
+        try:
+            tfidf_matrix = tfidf.fit_transform(all_books["features"])
+            
+            # Calculate similarity matrix
+            logger.info("Calculating similarity matrix")
+            self.similarity_matrix = cosine_similarity(tfidf_matrix)
+            self.book_features_df = all_books
+            
+        except Exception as e:
+            logger.error(f"Error creating TF-IDF matrix: {e}")
         
     def _enrich_book_data(self):
         """Fetch additional details for books"""
-        print("Enriching book data with additional details...")
+        logger.info("Enriching book data with additional details...")
         
         # Only process books with URLs
         books_with_urls = self.user_books_df[self.user_books_df["url"].str.len() > 0].copy()
         
         if books_with_urls.empty:
+            logger.warning("No books with URLs found")
             return
             
         # Add genres column if it doesn't exist
@@ -156,21 +202,35 @@ class BookRecommender:
         from scraper import GoodreadsScraper
         scraper = GoodreadsScraper("")  # Empty user_id as we're just using the get_book_details method
         
-        for idx, row in tqdm(books_with_urls.iterrows(), total=len(books_with_urls), desc="Fetching book details"):
-            if row["url"]:
-                details = scraper.get_book_details(row["url"])
+        # Check if we already have genre data
+        missing_genres = books_with_urls["genres"].apply(lambda x: not x or len(x) == 0).sum()
+        
+        if missing_genres > 0:
+            logger.info(f"Fetching details for {missing_genres} books missing genre data")
+            
+            for idx, row in tqdm(books_with_urls.iterrows(), total=len(books_with_urls), desc="Fetching book details"):
+                if row["url"] and (not row["genres"] or len(row["genres"]) == 0):
+                    try:
+                        details = scraper.get_book_details(row["url"])
+                        
+                        if details:
+                            books_with_urls.at[idx, "genres"] = details.get("genres", [])
+                            books_with_urls.at[idx, "description"] = details.get("description", "")
+                            
+                        # Be nice to Goodreads servers
+                        time.sleep(1)
+                    except Exception as e:
+                        logger.error(f"Error fetching details for book {row['title']}: {e}")
                 
-                if details:
-                    books_with_urls.at[idx, "genres"] = details.get("genres", [])
-                    books_with_urls.at[idx, "description"] = details.get("description", "")
-                    
-                # Be nice to Goodreads servers
-                time.sleep(1)
-                
-        # Update the main DataFrame
-        for idx, row in books_with_urls.iterrows():
-            self.user_books_df.at[idx, "genres"] = row["genres"]
-            self.user_books_df.at[idx, "description"] = row["description"]
+            # Update the main DataFrame
+            for idx, row in books_with_urls.iterrows():
+                try:
+                    self.user_books_df.at[idx, "genres"] = row["genres"]
+                    self.user_books_df.at[idx, "description"] = row["description"]
+                except Exception as e:
+                    logger.error(f"Error updating book data: {e}")
+        else:
+            logger.info("All books already have genre data")
             
     def _fetch_popular_books(self, num_books=100):
         """
@@ -179,7 +239,7 @@ class BookRecommender:
         Returns:
             DataFrame with popular books
         """
-        print("Fetching popular books to improve recommendations...")
+        logger.info("Fetching popular books to improve recommendations...")
         
         try:
             popular_books = []
@@ -192,7 +252,7 @@ class BookRecommender:
             response = requests.get(base_url, headers=headers)
             
             if response.status_code != 200:
-                print(f"Error fetching popular books. Status code: {response.status_code}")
+                logger.error(f"Error fetching popular books. Status code: {response.status_code}")
                 return pd.DataFrame()
                 
             soup = BeautifulSoup(response.text, "html.parser")
@@ -231,13 +291,14 @@ class BookRecommender:
                     })
                     
                 except Exception as e:
-                    print(f"Error extracting popular book: {e}")
+                    logger.error(f"Error extracting popular book: {e}")
                     continue
                     
+            logger.info(f"Fetched {len(popular_books)} popular books")
             return pd.DataFrame(popular_books)
             
         except Exception as e:
-            print(f"Error fetching popular books: {e}")
+            logger.error(f"Error fetching popular books: {e}")
             return pd.DataFrame()
             
     def _find_similar_books(self, book, num_similar=10):
@@ -252,12 +313,14 @@ class BookRecommender:
             List of similar books
         """
         if self.book_features_df is None or self.similarity_matrix is None:
+            logger.warning("Feature data or similarity matrix not available")
             return []
             
         # Find the index of the book
         book_indices = self.book_features_df[self.book_features_df["title"] == book["title"]].index
         
         if len(book_indices) == 0:
+            logger.warning(f"Book '{book['title']}' not found in feature data")
             return []
             
         book_idx = book_indices[0]
@@ -290,7 +353,7 @@ class BookRecommender:
                     "score": float(score)
                 })
             except Exception as e:
-                print(f"Error processing similar book: {e}")
+                logger.error(f"Error processing similar book: {e}")
                 continue
             
         return similar_books 

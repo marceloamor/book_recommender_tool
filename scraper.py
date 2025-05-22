@@ -6,9 +6,22 @@ This module handles scraping book data from Goodreads shelves.
 
 import requests
 import time
+import re
 from bs4 import BeautifulSoup
 import pandas as pd
 from tqdm import tqdm
+import logging
+
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("scraper.log"),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger(__name__)
 
 class GoodreadsScraper:
     def __init__(self, user_id):
@@ -33,39 +46,58 @@ class GoodreadsScraper:
         shelves_to_scrape = ["read", "to-read", "currently-reading"] if shelf == "all" else [shelf]
         
         for current_shelf in shelves_to_scrape:
-            print(f"Scraping '{current_shelf}' shelf...")
+            logger.info(f"Scraping '{current_shelf}' shelf...")
             page = 1
             while True:
                 url = f"{self.base_url}/review/list/{self.user_id}?shelf={current_shelf}&page={page}"
-                response = requests.get(url, headers=self.headers)
-                
-                if response.status_code != 200:
-                    print(f"Error accessing page {page} of {current_shelf} shelf. Status code: {response.status_code}")
-                    break
-                
-                soup = BeautifulSoup(response.text, "html.parser")
-                book_rows = soup.select("tr.bookalike")
-                
-                if not book_rows:
-                    break
+                try:
+                    response = requests.get(url, headers=self.headers)
                     
-                for book_row in book_rows:
-                    book_data = self._extract_book_data(book_row, current_shelf)
-                    all_books.append(book_data)
-                
-                # Check if there's a next page
-                next_button = soup.select_one("a.next_page")
-                if not next_button:
-                    break
+                    if response.status_code != 200:
+                        logger.error(f"Error accessing page {page} of {current_shelf} shelf. Status code: {response.status_code}")
+                        break
                     
-                page += 1
-                # Be nice to Goodreads servers
-                time.sleep(1)
+                    soup = BeautifulSoup(response.text, "html.parser")
+                    book_rows = soup.select("tr.bookalike")
+                    
+                    if not book_rows:
+                        logger.info(f"No more books found on page {page} of {current_shelf} shelf")
+                        break
+                        
+                    for book_row in book_rows:
+                        book_data = self._extract_book_data(book_row, current_shelf)
+                        all_books.append(book_data)
+                    
+                    # Check if there's a next page
+                    next_button = soup.select_one("a.next_page")
+                    if not next_button:
+                        logger.info(f"No more pages for {current_shelf} shelf")
+                        break
+                        
+                    page += 1
+                    # Be nice to Goodreads servers
+                    time.sleep(1)
+                except Exception as e:
+                    logger.error(f"Error scraping page {page} of {current_shelf} shelf: {e}")
+                    break
         
         if not all_books:
+            logger.warning("No books found across all shelves")
             return None
             
-        return pd.DataFrame(all_books)
+        # Convert to DataFrame
+        books_df = pd.DataFrame(all_books)
+        
+        # Initialize genres column as empty lists
+        if "genres" not in books_df.columns:
+            books_df["genres"] = [[] for _ in range(len(books_df))]
+            
+        # Initialize description column as empty strings
+        if "description" not in books_df.columns:
+            books_df["description"] = ""
+            
+        logger.info(f"Successfully scraped {len(books_df)} books in total")
+        return books_df
     
     def _extract_book_data(self, book_row, shelf):
         """Extract book information from a table row"""
@@ -75,14 +107,23 @@ class GoodreadsScraper:
             title = title_element.text.strip() if title_element else "Unknown Title"
             book_url = title_element["href"] if title_element else ""
             
+            # Clean up title (remove series info in parentheses)
+            title = re.sub(r'\s*\([^)]*\)\s*$', '', title)
+            
             author_element = book_row.select_one("td.author a")
             author = author_element.text.strip() if author_element else "Unknown Author"
             
             isbn_element = book_row.select_one("td.isbn div.value")
             isbn = isbn_element.text.strip() if isbn_element else ""
             
+            # Extract average rating
             rating_element = book_row.select_one("td.avg_rating div.value")
-            avg_rating = float(rating_element.text.strip()) if rating_element else 0.0
+            avg_rating = 0.0
+            if rating_element:
+                try:
+                    avg_rating = float(rating_element.text.strip())
+                except ValueError:
+                    logger.warning(f"Could not parse average rating for '{title}'")
             
             # Extract user rating if available
             user_rating_element = book_row.select_one("td.rating div.value")
@@ -90,6 +131,14 @@ class GoodreadsScraper:
             if user_rating_element:
                 stars = user_rating_element.select("span.staticStar.p10")
                 user_rating = len(stars) if stars else 0
+                if user_rating == 0:
+                    # Try alternative method
+                    rating_text = user_rating_element.text.strip()
+                    if rating_text and rating_text[0].isdigit():
+                        try:
+                            user_rating = int(rating_text[0])
+                        except ValueError:
+                            pass
             
             # Extract date read if available
             date_read_element = book_row.select_one("td.date_read div.value")
@@ -97,6 +146,10 @@ class GoodreadsScraper:
             
             # Get full book URL
             full_url = f"{self.base_url}{book_url}" if book_url and not book_url.startswith("http") else book_url
+            
+            # Extract book cover image URL
+            cover_element = book_row.select_one("td.cover img")
+            cover_url = cover_element["src"] if cover_element and "src" in cover_element.attrs else ""
             
             return {
                 "title": title,
@@ -106,11 +159,13 @@ class GoodreadsScraper:
                 "user_rating": user_rating,
                 "date_read": date_read,
                 "shelf": shelf,
-                "url": full_url
+                "url": full_url,
+                "cover_url": cover_url,
+                "genres": []  # Will be populated later
             }
             
         except Exception as e:
-            print(f"Error extracting book data: {e}")
+            logger.error(f"Error extracting book data: {e}")
             return {
                 "title": "Error extracting data",
                 "author": "",
@@ -119,7 +174,9 @@ class GoodreadsScraper:
                 "user_rating": 0,
                 "date_read": "",
                 "shelf": shelf,
-                "url": ""
+                "url": "",
+                "cover_url": "",
+                "genres": []
             }
     
     def get_book_details(self, book_url):
@@ -135,32 +192,73 @@ class GoodreadsScraper:
         try:
             response = requests.get(book_url, headers=self.headers)
             if response.status_code != 200:
+                logger.warning(f"Failed to fetch book details: {response.status_code}")
                 return {}
                 
             soup = BeautifulSoup(response.text, "html.parser")
             
+            # Extract title (as a backup)
+            title_element = soup.select_one("h1#bookTitle")
+            title = title_element.text.strip() if title_element else ""
+            
             # Extract genres/shelves
             genres = []
+            
+            # Method 1: Look for genre links
             genre_elements = soup.select("div.elementList div.left a.actionLinkLite.bookPageGenreLink")
             for genre_elem in genre_elements[:5]:  # Limit to first 5 genres
-                genres.append(genre_elem.text.strip())
+                genre = genre_elem.text.strip()
+                if genre and genre not in genres:
+                    genres.append(genre)
+            
+            # Method 2: Look for popular shelves
+            if not genres:
+                shelf_elements = soup.select("a.actionLinkLite.bookPageGenreLink")
+                for shelf_elem in shelf_elements[:5]:
+                    genre = shelf_elem.text.strip()
+                    if genre and genre not in genres:
+                        genres.append(genre)
             
             # Extract description
+            description = ""
+            # Try expanded description first
             description_elem = soup.select_one("div#description span[style='display:none']")
             if not description_elem:
+                # Try visible description
                 description_elem = soup.select_one("div#description span")
-            description = description_elem.text.strip() if description_elem else ""
+            
+            if description_elem:
+                description = description_elem.text.strip()
             
             # Extract page count
+            pages = "0"
             pages_elem = soup.select_one("span[itemprop='numberOfPages']")
-            pages = pages_elem.text.strip().split()[0] if pages_elem else "0"
+            if pages_elem:
+                pages_match = re.search(r'\d+', pages_elem.text)
+                if pages_match:
+                    pages = pages_match.group(0)
+            
+            # Extract publication info
+            pub_info = ""
+            pub_elem = soup.select_one("div#details")
+            if pub_elem:
+                pub_info = pub_elem.text.strip()
+            
+            # Extract series info
+            series = ""
+            series_elem = soup.select_one("h2#bookSeries a")
+            if series_elem:
+                series = series_elem.text.strip().strip('()')
             
             return {
+                "title": title,
                 "genres": genres,
                 "description": description,
-                "pages": pages
+                "pages": pages,
+                "publication_info": pub_info,
+                "series": series
             }
             
         except Exception as e:
-            print(f"Error getting book details: {e}")
+            logger.error(f"Error getting book details: {e}")
             return {} 

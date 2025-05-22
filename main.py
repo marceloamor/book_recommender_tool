@@ -8,10 +8,39 @@ and are currently reading, then provides personalized book recommendations.
 
 import os
 import argparse
+import textwrap
 from dotenv import load_dotenv
 from scraper import GoodreadsScraper
 from recommender import BookRecommender
 from data_storage import DataStorage
+from analyze_data import analyze_data
+
+def display_recommendations(recommendations):
+    """Display book recommendations in a nicely formatted way"""
+    if not recommendations:
+        print("No recommendations available.")
+        return
+        
+    print("\n" + "=" * 80)
+    print("RECOMMENDED BOOKS FOR YOU")
+    print("=" * 80)
+    
+    for i, book in enumerate(recommendations, 1):
+        title = book.get("title", "Unknown Title")
+        author = book.get("author", "Unknown Author")
+        genre = book.get("genre", "")
+        rating = book.get("rating", 0.0)
+        link = book.get("link", "")
+        score = book.get("score", 0.0)
+        
+        print(f"\n{i}. {title} by {author}")
+        print(f"   Genre: {genre}")
+        print(f"   Rating: {rating:.1f}/5.0")
+        if score:
+            print(f"   Match Score: {score:.2f}")
+        if link:
+            print(f"   Link: {link}")
+        print("-" * 80)
 
 def main():
     load_dotenv()
@@ -28,6 +57,12 @@ def main():
                         help="Save scraped data for future use")
     parser.add_argument("--list_saved", action="store_true",
                         help="List saved data files")
+    parser.add_argument("--analyze_data", action="store_true",
+                        help="Analyze saved data structure")
+    parser.add_argument("--scrape_only", action="store_true",
+                        help="Only scrape and save data, don't generate recommendations")
+    parser.add_argument("--verbose", action="store_true",
+                        help="Show detailed information")
     args = parser.parse_args()
     
     # Initialize data storage
@@ -42,6 +77,11 @@ def main():
                 print(f"  - {file}")
         else:
             print("No saved data files found.")
+        return
+    
+    # Analyze data if requested
+    if args.analyze_data:
+        analyze_data(args.user_id, args.verbose)
         return
     
     # Use environment variable if no user_id provided
@@ -76,7 +116,13 @@ def main():
     
     print(f"Found {len(books)} books in your Goodreads shelves.")
     
+    # If scrape_only flag is set, exit here
+    if args.scrape_only:
+        print("Scraping completed. Data saved successfully.")
+        return
+    
     # Generate recommendations
+    print("\nGenerating recommendations...")
     recommender = BookRecommender(books)
     recommendations = recommender.get_recommendations(args.num_recommendations)
     
@@ -85,12 +131,7 @@ def main():
         return
     
     # Display recommendations
-    print("\nRecommended Books:")
-    for i, book in enumerate(recommendations, 1):
-        print(f"{i}. {book['title']} by {book['author']}")
-        print(f"   Genre: {book['genre']}")
-        print(f"   Rating: {book['rating']}/5.0")
-        print(f"   Link: {book['link']}\n")
+    display_recommendations(recommendations)
 
 if __name__ == "__main__":
     main() 
