@@ -1,2 +1,26 @@
 .venv
 .env
+
+# Log files
+logs/
+*.log
+
+# Generated files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.html
+*.gpickle
+
+# Data files
+data/
+graph_recommender/data/
+*.csv
+*.json
+*.gz
+
+# IDE files
+.vscode/
+.idea/

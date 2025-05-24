@@ -9,6 +9,11 @@ import argparse
 import json
 import pandas as pd
 import os
+import sys
+
+# Add parent directory to path so we can import modules
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from data_storage import DataStorage
 
 def analyze_data(user_id=None, verbose=False):
@@ -103,7 +108,17 @@ def main():
     parser.add_argument("--verbose", action="store_true", help="Show detailed information")
     args = parser.parse_args()
     
-    analyze_data(args.user_id, args.verbose)
+    # Load environment variables from .env file
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+        
+        # Use environment variable if no user_id provided
+        user_id = args.user_id or os.getenv("GOODREADS_USER_ID")
+    except ImportError:
+        user_id = args.user_id
+    
+    analyze_data(user_id, args.verbose)
 
 if __name__ == "__main__":
     main() 

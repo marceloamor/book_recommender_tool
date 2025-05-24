@@ -19,10 +19,10 @@ from recommender import BookRecommender
 # Set up logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
+    format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("fix_genres.log"),
-        logging.StreamHandler()
+        logging.StreamHandler(),
+        logging.FileHandler("logs/fix_genres.log"),
     ]
 )
 logger = logging.getLogger(__name__)

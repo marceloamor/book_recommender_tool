@@ -8,12 +8,21 @@ and are currently reading, then provides personalized book recommendations.
 
 import os
 import argparse
-import textwrap
+import sys
 from dotenv import load_dotenv
 from scraper import GoodreadsScraper
 from recommender import BookRecommender
 from data_storage import DataStorage
-from analyze_data import analyze_data
+
+# Import analyze_data from scripts
+from scripts.analyze_data import analyze_data
+
+# Import graph-based recommender if available
+try:
+    from graph_recommender.main import main as graph_main
+    HAS_GRAPH_RECOMMENDER = True
+except ImportError:
+    HAS_GRAPH_RECOMMENDER = False
 
 def display_recommendations(recommendations):
     """Display book recommendations in a nicely formatted way"""
@@ -45,6 +54,20 @@ def display_recommendations(recommendations):
 def main():
     load_dotenv()
     
+    # First check if --graph is in the arguments
+    if HAS_GRAPH_RECOMMENDER and "--graph" in sys.argv:
+        # Create a new arguments list without the --graph flag
+        new_args = [arg for arg in sys.argv if arg != "--graph"]
+        
+        # Replace the sys.argv with the new list
+        sys.argv = new_args
+        
+        # Call the graph recommender's main function
+        print("Using graph-based recommender...")
+        graph_main()
+        return
+    
+    # Regular content-based recommender
     parser = argparse.ArgumentParser(description="Goodreads Book Recommender Tool")
     parser.add_argument("--user_id", help="Your Goodreads user ID")
     parser.add_argument("--shelf", choices=["read", "to-read", "currently-reading", "all"], 
@@ -63,6 +86,12 @@ def main():
                         help="Only scrape and save data, don't generate recommendations")
     parser.add_argument("--verbose", action="store_true",
                         help="Show detailed information")
+    
+    # Add graph-based recommender option if available
+    if HAS_GRAPH_RECOMMENDER:
+        parser.add_argument("--graph", action="store_true",
+                           help="Use graph-based recommender instead of content-based")
+    
     args = parser.parse_args()
     
     # Initialize data storage
@@ -90,6 +119,9 @@ def main():
     if not user_id:
         print("Error: Goodreads user ID is required. Provide it with --user_id or set GOODREADS_USER_ID environment variable.")
         return
+    
+    # Ensure logs directory exists
+    os.makedirs("logs", exist_ok=True)
     
     # Get books data
     books = None
