@@ -179,12 +179,99 @@ Options:
 4. Applies graph algorithms to find new books
 5. Optional: Generates a visualization of your book graph
 
+## Graph-Based Recommender Usage
+
+The graph-based recommender has been updated to work more reliably with your own Goodreads data. There are now three approaches to using it:
+
+### Option 1: Local Data with External Book Recommendations (Recommended)
+
+This approach uses your own Goodreads data plus the Book-Crossing dataset to recommend books you haven't read yet:
+
+```bash
+# First, create the local book graph from your data
+python scripts/use_local_data.py --use_saved
+
+# Then add external books for better recommendations
+python scripts/add_external_books.py --use_saved
+
+# Now run the graph recommender to get recommendations
+python main.py --graph --use_saved
+```
+
+This method:
+1. Uses your existing Goodreads data to create a small graph
+2. Downloads the Book-Crossing dataset to find similar books to those in your collection
+3. Integrates these external books into your graph
+4. Recommends new books you haven't read based on your preferences
+
+### Option 2: Using Local Data Only
+
+If you just want to explore your own book collection without external data:
+
+```bash
+# Create the local book graph from your data
+python scripts/use_local_data.py --use_saved
+
+# Run the graph recommender
+python main.py --graph --use_saved
+```
+
+This approach works with your data only, but may show books you've already read if no new books are available.
+
+### Option 3: Using a Small Test Dataset
+
+For quick testing without downloading large datasets:
+
+```bash
+python scripts/download_ucsd_data.py --small
+python main.py --graph --use_saved
+```
+
+This creates a tiny test graph for development and testing purposes.
+
+### Option 4: Downloading the UCSD Book Graph Dataset
+
+If you want to use the full UCSD Book Graph dataset, you can download a specific genre subset:
+
+```bash
+# Download the fantasy-paranormal genre subset
+python scripts/download_ucsd_data.py --genre fantasy-paranormal
+
+# Run the graph recommender with the downloaded data
+python main.py --graph --use_saved
+```
+
+### Advanced Options
+
+The graph recommender supports several algorithms:
+
+```bash
+# Use node2vec embeddings (requires more memory)
+python main.py --graph --use_saved --method node2vec
+
+# Use personalized PageRank 
+python main.py --graph --use_saved --method personalized_pagerank
+
+# Use heuristic approach (default, works best with small graphs)
+python main.py --graph --use_saved --method heuristic
+
+# Combine all approaches
+python main.py --graph --use_saved --method ensemble
+```
+
+You can also adjust the number of recommendations and other parameters:
+
+```bash
+python main.py --graph --use_saved --num_recommendations 20 --min_rating 4.0 --hops 3
+```
+
 ## Notes
 
 - This tool respects Goodreads servers by adding delays between requests.
 - The tool uses web scraping since Goodreads no longer provides a public API.
-- The graph-based recommender requires downloading the UCSD Book Graph dataset (several GB).
+- The graph-based recommender works best with the local data approach for most users.
 - First-time setup for the graph-based recommender takes time but subsequent runs are faster.
+- The full UCSD Book Graph dataset is quite large (several GB) if you choose to download it.
 
 ## Project Structure
 

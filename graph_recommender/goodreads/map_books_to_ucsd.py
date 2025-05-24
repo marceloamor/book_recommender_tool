@@ -35,8 +35,19 @@ class BookMapper:
         logger.info("Building title-to-ID map for faster lookups...")
         
         for book_id, metadata in tqdm(self.ucsd_graph.book_metadata.items(), desc="Building title map"):
-            title = metadata.get('title', '').lower().strip()
+            # Skip if book_id is not a string
+            if not isinstance(book_id, str):
+                book_id = str(book_id)
+                
+            # Skip if metadata is not a dictionary
+            if not isinstance(metadata, dict):
+                continue
+                
+            title = metadata.get('title', '')
             if title:
+                # Normalize the title
+                title = self._normalize_title(title)
+                
                 # If multiple books have the same title, we'll keep all of them
                 if title in self.title_to_id_map:
                     self.title_to_id_map[title].append(book_id)
@@ -44,6 +55,22 @@ class BookMapper:
                     self.title_to_id_map[title] = [book_id]
         
         logger.info(f"Built title map with {len(self.title_to_id_map)} unique titles")
+        
+        # If title map is empty, this might be local data, so add all nodes directly
+        if not self.title_to_id_map and self.ucsd_graph.graph:
+            logger.info("Title map is empty. Using graph nodes as fallback...")
+            for node in self.ucsd_graph.graph.nodes():
+                book_id = str(node)
+                attrs = self.ucsd_graph.graph.nodes[node]
+                title = attrs.get('title', '')
+                if title:
+                    title = self._normalize_title(title)
+                    if title in self.title_to_id_map:
+                        self.title_to_id_map[title].append(book_id)
+                    else:
+                        self.title_to_id_map[title] = [book_id]
+            
+            logger.info(f"Built fallback title map with {len(self.title_to_id_map)} unique titles from graph nodes")
     
     def _normalize_title(self, title):
         """Normalize a title for better matching."""
@@ -148,6 +175,29 @@ class BookMapper:
         if goodreads_books.empty:
             logger.warning("No Goodreads books to map")
             return goodreads_books
+        
+        # If the title map is empty but we have books, assume this is local data
+        # In this case, just use the book_id directly as the ucsd_book_id
+        if not self.title_to_id_map and not goodreads_books.empty:
+            logger.info("No title map found. Using direct mapping for local data...")
+            
+            # Add columns for UCSD book ID and match score
+            result_df = goodreads_books.copy()
+            result_df['ucsd_book_id'] = None
+            result_df['match_score'] = 0.0
+            
+            # For local data, just use the book_id as the ucsd_book_id
+            for idx, book in goodreads_books.iterrows():
+                book_id = book.get('book_id')
+                if book_id:
+                    result_df.at[idx, 'ucsd_book_id'] = str(book_id)
+                    result_df.at[idx, 'match_score'] = 100.0
+                    
+            # Count matches
+            matched_count = result_df['ucsd_book_id'].notna().sum()
+            logger.info(f"Directly mapped {matched_count}/{len(goodreads_books)} books ({matched_count/len(goodreads_books)*100:.1f}%)")
+            
+            return result_df
         
         # Add columns for UCSD book ID and match score
         result_df = goodreads_books.copy()

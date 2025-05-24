@@ -77,8 +77,14 @@ def display_recommendations(recommendations):
         score = book.get("score", 0.0)
         algorithm = book.get("algorithm", "unknown")
         connected_to = book.get("connected_to", [])
+        notes = book.get("notes", [])
+        is_external = book.get("is_external", False)
         
-        print(f"\n{i}. {title} by {author}")
+        if is_external:
+            print(f"\n{i}. {title} by {author} [EXTERNAL]")
+        else:
+            print(f"\n{i}. {title} by {author}")
+        
         print(f"   Genre: {genres}")
         print(f"   Rating: {rating:.1f}/5.0")
         print(f"   Match Score: {score:.4f}")
@@ -87,6 +93,10 @@ def display_recommendations(recommendations):
         if connected_to:
             print(f"   Similar to: {', '.join(connected_to[:3])}")
             
+        if notes:
+            for note in notes:
+                print(f"   Note: {note}")
+                
         print("-" * 80)
 
 def main():
@@ -102,7 +112,7 @@ def main():
     parser.add_argument("--num_recommendations", type=int, default=10,
                       help="Number of book recommendations to generate")
     parser.add_argument("--method", choices=["personalized_pagerank", "node2vec", "heuristic", "ensemble"],
-                      default="personalized_pagerank", help="Recommendation method")
+                      default="heuristic", help="Recommendation method")
     parser.add_argument("--hops", type=int, default=2,
                       help="Number of hops for subgraph extraction")
     parser.add_argument("--min_edge_weight", type=int, default=1,

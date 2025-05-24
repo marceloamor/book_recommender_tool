@@ -46,6 +46,32 @@ class GraphRecommender:
             if attrs.get('read_by_user', False)
         ]
     
+    def _get_unread_books(self):
+        """Get books not read by the user from the graph."""
+        if self.graph is None:
+            logger.error("No graph available. Set a graph first.")
+            return []
+            
+        return [
+            node for node, attrs in self.graph.nodes(data=True)
+            if not attrs.get('read_by_user', False)
+        ]
+    
+    def _is_external_book(self, book_id):
+        """Check if a book is from an external dataset."""
+        return isinstance(book_id, str) and book_id.startswith("external_")
+        
+    def _get_external_books(self):
+        """Get books from external datasets."""
+        if self.graph is None:
+            logger.error("No graph available. Set a graph first.")
+            return []
+            
+        return [
+            node for node in self.graph.nodes()
+            if self._is_external_book(node)
+        ]
+    
     def recommend_personalized_pagerank(self, num_recommendations=10, alpha=0.85):
         """
         Generate recommendations using Personalized PageRank.
@@ -88,12 +114,53 @@ class GraphRecommender:
             weight='weight'
         )
         
-        # Filter out books the user has already read
-        user_books_set = set(user_books)
-        recommendations = [
-            (node, score) for node, score in pagerank_scores.items()
-            if node not in user_books_set
-        ]
+        # Get unread books
+        unread_books = self._get_unread_books()
+        
+        # First check if we have any external books
+        external_books = self._get_external_books()
+        
+        # Filter recommendations to prioritize unread books
+        if external_books:
+            # Prioritize external books
+            recommendations = [
+                (node, score) for node, score in pagerank_scores.items()
+                if node in external_books
+            ]
+            logger.info(f"Found {len(recommendations)} external books to recommend")
+        elif unread_books:
+            # Prioritize any unread books
+            recommendations = [
+                (node, score) for node, score in pagerank_scores.items()
+                if node in unread_books
+            ]
+            logger.info(f"Found {len(recommendations)} unread books to recommend")
+        else:
+            # Fall back to all books except those read by the user
+            user_books_set = set(user_books)
+            recommendations = [
+                (node, score) for node, score in pagerank_scores.items()
+                if node not in user_books_set
+            ]
+        
+        # If we still don't have recommendations, fall back to user's books
+        if not recommendations:
+            logger.warning("All books in the graph are already read by the user")
+            # Fall back to showing the top rated user books as "recommendations"
+            # This isn't ideal but ensures the user sees something
+            user_book_ratings = [(node, self.graph.nodes[node].get('user_rating', 0)) 
+                                 for node in user_books]
+            user_book_ratings.sort(key=lambda x: x[1], reverse=True)
+            recommendations = [(node, 1.0) for node, _ in user_book_ratings[:num_recommendations]]
+            
+            # Also add a note to the first recommendation
+            if recommendations:
+                first_book = recommendations[0][0]
+                if 'notes' not in self.graph.nodes[first_book]:
+                    self.graph.nodes[first_book]['notes'] = []
+                self.graph.nodes[first_book]['notes'].append(
+                    "All books in your collection have been read. Run scripts/add_external_books.py to add more books for recommendations."
+                )
         
         # Sort by score (descending)
         recommendations.sort(key=lambda x: x[1], reverse=True)
@@ -109,7 +176,9 @@ class GraphRecommender:
                 'rating': book_data.get('rating', 0.0),
                 'genres': book_data.get('genres', []),
                 'score': score,
-                'algorithm': 'personalized_pagerank'
+                'algorithm': 'personalized_pagerank',
+                'notes': book_data.get('notes', []),
+                'is_external': self._is_external_book(book_id)
             })
         
         return result
@@ -199,9 +268,57 @@ class GraphRecommender:
                 logger.error("No embeddings available. Call compute_node2vec_embeddings first.")
                 return []
         
+        # Get unread books and external books
+        unread_books = self._get_unread_books()
+        external_books = self._get_external_books()
+        
+        # Prioritize external books or unread books
+        if external_books:
+            candidates = external_books
+            logger.info(f"Found {len(candidates)} external books to consider for recommendations")
+        elif unread_books:
+            candidates = unread_books
+            logger.info(f"Found {len(candidates)} unread books to consider for recommendations")
+        else:
+            # Fall back to all books except those read by the user
+            user_books_set = set(user_books)
+            candidates = set(self.graph.nodes()) - user_books_set
+            logger.info(f"Found {len(candidates)} candidate books (excluding user's books)")
+        
+        # If no candidates found, return top rated user books as a fallback
+        if not candidates:
+            logger.warning("All books in the graph are already read by the user")
+            # Fall back to showing the top rated user books as "recommendations"
+            user_book_ratings = [(node, self.graph.nodes[node].get('user_rating', 0)) 
+                                for node in user_books]
+            user_book_ratings.sort(key=lambda x: x[1], reverse=True)
+            
+            # Convert to list of dictionaries with metadata
+            result = []
+            for book_id, user_rating in user_book_ratings[:num_recommendations]:
+                book_data = self.graph.nodes[book_id]
+                
+                # Add note to the first recommendation
+                notes = []
+                if book_id == user_book_ratings[0][0]:
+                    notes.append("All books in your collection have been read. Run scripts/add_external_books.py to add more books for recommendations.")
+                
+                result.append({
+                    'book_id': book_id,
+                    'title': book_data.get('title', 'Unknown'),
+                    'author': book_data.get('author', 'Unknown'),
+                    'rating': book_data.get('rating', 0.0),
+                    'genres': book_data.get('genres', []),
+                    'score': 1.0,
+                    'algorithm': 'node2vec',
+                    'notes': notes,
+                    'is_external': self._is_external_book(book_id)
+                })
+            
+            return result
+        
         # Compute average similarity to user's books for each candidate book
         similarities = defaultdict(float)
-        candidates = set(self.graph.nodes()) - set(user_books)
         
         logger.info("Computing similarities to user books...")
         
@@ -250,23 +367,21 @@ class GraphRecommender:
                 'rating': book_data.get('rating', 0.0),
                 'genres': book_data.get('genres', []),
                 'score': score,
-                'algorithm': 'node2vec'
+                'algorithm': 'node2vec',
+                'notes': [],
+                'is_external': self._is_external_book(book_id)
             })
         
         return result
     
     def recommend_heuristic(self, num_recommendations=10, rating_weight=0.3, connectivity_weight=0.7):
         """
-        Generate recommendations using a simple heuristic approach.
-        
-        The score combines:
-        1. Book rating
-        2. Connectivity to user's books
+        Generate recommendations using a simple heuristic based on book ratings and connectivity.
         
         Args:
             num_recommendations: Number of recommendations to generate
-            rating_weight: Weight for book rating in score
-            connectivity_weight: Weight for connectivity in score
+            rating_weight: Weight for book rating in scoring (0-1)
+            connectivity_weight: Weight for connectivity to user books in scoring (0-1)
             
         Returns:
             List of recommended books with scores
@@ -282,10 +397,56 @@ class GraphRecommender:
             logger.warning("No user books found in the graph")
             return []
             
-        # Calculate connectivity score for each candidate book
-        user_books_set = set(user_books)
-        candidates = set(self.graph.nodes()) - user_books_set
+        # Get unread books and external books
+        unread_books = self._get_unread_books()
+        external_books = self._get_external_books()
         
+        # Prioritize external books or unread books
+        if external_books:
+            candidates = external_books
+            logger.info(f"Found {len(candidates)} external books to consider for recommendations")
+        elif unread_books:
+            candidates = unread_books
+            logger.info(f"Found {len(candidates)} unread books to consider for recommendations")
+        else:
+            # Fall back to all books except those read by the user
+            user_books_set = set(user_books)
+            candidates = set(self.graph.nodes()) - user_books_set
+            logger.info(f"Found {len(candidates)} candidate books (excluding user's books)")
+        
+        # If no candidates found, return top rated user books as a fallback
+        if not candidates:
+            logger.warning("All books in the graph are already read by the user")
+            # Fall back to showing the top rated user books as "recommendations"
+            user_book_ratings = [(node, self.graph.nodes[node].get('user_rating', 0)) 
+                                for node in user_books]
+            user_book_ratings.sort(key=lambda x: x[1], reverse=True)
+            
+            # Convert to list of dictionaries with metadata
+            result = []
+            for book_id, user_rating in user_book_ratings[:num_recommendations]:
+                book_data = self.graph.nodes[book_id]
+                
+                # Add note to the first recommendation
+                notes = []
+                if book_id == user_book_ratings[0][0]:
+                    notes.append("All books in your collection have been read. Run scripts/add_external_books.py to add more books for recommendations.")
+                
+                result.append({
+                    'book_id': book_id,
+                    'title': book_data.get('title', 'Unknown'),
+                    'author': book_data.get('author', 'Unknown'),
+                    'rating': book_data.get('rating', 0.0),
+                    'genres': book_data.get('genres', []),
+                    'score': 1.0,
+                    'algorithm': 'heuristic',
+                    'notes': notes,
+                    'is_external': self._is_external_book(book_id)
+                })
+            
+            return result
+        
+        # Calculate scores for each candidate
         scores = {}
         
         for candidate in candidates:
@@ -317,6 +478,10 @@ class GraphRecommender:
                 connectivity_weight * connectivity_score
             )
             
+            # Boost external books slightly
+            if self._is_external_book(candidate):
+                final_score *= 1.1
+            
             scores[candidate] = final_score
         
         # Sort by score (descending)
@@ -345,7 +510,9 @@ class GraphRecommender:
                 'genres': book_data.get('genres', []),
                 'score': score,
                 'connected_to': connected_user_books[:3],  # Top 3 connections
-                'algorithm': 'heuristic'
+                'algorithm': 'heuristic',
+                'notes': [],
+                'is_external': self._is_external_book(book_id)
             })
         
         return result
