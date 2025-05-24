@@ -1,1 +1,440 @@
 2025-05-22 19:54:54,405 - INFO - Scraping 'read' shelf...
+2025-05-22 19:55:11,536 - INFO - No more pages for read shelf
+2025-05-22 19:55:11,536 - INFO - Scraping 'to-read' shelf...
+2025-05-22 19:55:15,346 - INFO - No more pages for to-read shelf
+2025-05-22 19:55:15,346 - INFO - Scraping 'currently-reading' shelf...
+2025-05-22 19:55:16,175 - INFO - No more pages for currently-reading shelf
+2025-05-22 19:55:16,188 - INFO - Successfully scraped 192 books in total
+2025-05-22 20:00:40,781 - INFO - Found 192 books with missing genres
+2025-05-22 20:00:40,792 - INFO - Fetching details from https://www.goodreads.com/book/show/13707738-boomerang
+2025-05-22 20:00:42,635 - WARNING - No genres found for book: 
+2025-05-22 20:00:43,728 - INFO - Fetching details from https://www.goodreads.com/book/show/10669.When_Genius_Failed
+2025-05-22 20:00:45,701 - WARNING - No genres found for book: 
+2025-05-22 20:00:46,769 - INFO - Fetching details from https://www.goodreads.com/book/show/58784475-tomorrow-and-tomorrow-and-tomorrow
+2025-05-22 20:00:48,097 - WARNING - No genres found for book: 
+2025-05-22 20:00:49,172 - INFO - Fetching details from https://www.goodreads.com/book/show/7865083-liar-s-poker
+2025-05-22 20:00:50,529 - WARNING - No genres found for book: 
+2025-05-22 20:00:51,589 - INFO - Fetching details from https://www.goodreads.com/book/show/24724602-flash-boys
+2025-05-22 20:00:53,194 - WARNING - No genres found for book: 
+2025-05-22 20:00:54,260 - INFO - Fetching details from https://www.goodreads.com/book/show/56377179-trillions
+2025-05-22 20:00:56,064 - WARNING - No genres found for book: 
+2025-05-22 20:00:57,152 - INFO - Fetching details from https://www.goodreads.com/book/show/19288043-gone-girl
+2025-05-22 20:09:02,372 - INFO - Fetching details from https://www.goodreads.com/book/show/13707738-boomerang
+2025-05-22 20:09:03,917 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/13707738-boomerang
+2025-05-22 20:09:03,983 - INFO - Fetching details from https://www.goodreads.com/book/show/10669.When_Genius_Failed
+2025-05-22 20:09:05,439 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/10669.When_Genius_Failed
+2025-05-22 20:09:05,501 - INFO - Fetching details from https://www.goodreads.com/book/show/58784475-tomorrow-and-tomorrow-and-tomorrow
+2025-05-22 20:09:07,214 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/58784475-tomorrow-and-tomorrow-and-tomorrow
+2025-05-22 20:09:07,275 - INFO - Fetching details from https://www.goodreads.com/book/show/7865083-liar-s-poker
+2025-05-22 20:09:09,262 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7865083-liar-s-poker
+2025-05-22 20:09:09,321 - INFO - Fetching details from https://www.goodreads.com/book/show/24724602-flash-boys
+2025-05-22 20:09:10,861 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/24724602-flash-boys
+2025-05-22 20:09:46,718 - INFO - Found 192 books with missing genres
+2025-05-22 20:09:46,721 - INFO - Fetching details from https://www.goodreads.com/book/show/13707738-boomerang
+2025-05-22 20:09:48,115 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/13707738-boomerang
+2025-05-22 20:09:49,184 - INFO - Fetching details from https://www.goodreads.com/book/show/10669.When_Genius_Failed
+2025-05-22 20:09:50,905 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/10669.When_Genius_Failed
+2025-05-22 20:09:51,985 - INFO - Fetching details from https://www.goodreads.com/book/show/58784475-tomorrow-and-tomorrow-and-tomorrow
+2025-05-22 20:09:54,385 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/58784475-tomorrow-and-tomorrow-and-tomorrow
+2025-05-22 20:09:55,456 - INFO - Fetching details from https://www.goodreads.com/book/show/7865083-liar-s-poker
+2025-05-22 20:09:56,498 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7865083-liar-s-poker
+2025-05-22 20:09:57,559 - INFO - Fetching details from https://www.goodreads.com/book/show/24724602-flash-boys
+2025-05-22 20:09:59,078 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/24724602-flash-boys
+2025-05-22 20:10:00,143 - INFO - Fetching details from https://www.goodreads.com/book/show/56377179-trillions
+2025-05-22 20:10:02,211 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/56377179-trillions
+2025-05-22 20:10:03,292 - INFO - Fetching details from https://www.goodreads.com/book/show/19288043-gone-girl
+2025-05-22 20:10:04,692 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/19288043-gone-girl
+2025-05-22 20:10:05,765 - INFO - Fetching details from https://www.goodreads.com/book/show/2767052-the-hunger-games
+2025-05-22 20:10:07,570 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/2767052-the-hunger-games
+2025-05-22 20:10:08,645 - INFO - Fetching details from https://www.goodreads.com/book/show/4671.The_Great_Gatsby
+2025-05-22 20:10:09,900 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/4671.The_Great_Gatsby
+2025-05-22 20:10:10,977 - INFO - Fetching details from https://www.goodreads.com/book/show/72193.Harry_Potter_and_the_Philosopher_s_Stone
+2025-05-22 20:10:12,624 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/72193.Harry_Potter_and_the_Philosopher_s_Stone
+2025-05-22 20:10:13,699 - INFO - Fetching details from https://www.goodreads.com/book/show/10818853-fifty-shades-of-grey
+2025-05-22 20:10:15,365 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/10818853-fifty-shades-of-grey
+2025-05-22 20:10:16,459 - INFO - Fetching details from https://www.goodreads.com/book/show/28187.The_Lightning_Thief
+2025-05-22 20:10:17,972 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/28187.The_Lightning_Thief
+2025-05-22 20:10:19,042 - INFO - Fetching details from https://www.goodreads.com/book/show/6148028-catching-fire
+2025-05-22 20:10:20,769 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/6148028-catching-fire
+2025-05-22 20:10:21,838 - INFO - Fetching details from https://www.goodreads.com/book/show/7260188-mockingjay
+2025-05-22 20:10:23,571 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7260188-mockingjay
+2025-05-22 20:10:24,645 - INFO - Fetching details from https://www.goodreads.com/book/show/6442769-paper-towns
+2025-05-22 20:10:26,108 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/6442769-paper-towns
+2025-05-22 20:10:27,181 - INFO - Fetching details from https://www.goodreads.com/book/show/18710190-allegiant
+2025-05-22 20:10:29,725 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/18710190-allegiant
+2025-05-22 20:10:30,796 - INFO - Fetching details from https://www.goodreads.com/book/show/9460487-miss-peregrine-s-home-for-peculiar-children
+2025-05-22 20:10:32,658 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/9460487-miss-peregrine-s-home-for-peculiar-children
+2025-05-22 20:10:33,744 - INFO - Fetching details from https://www.goodreads.com/book/show/1.Harry_Potter_and_the_Half_Blood_Prince
+2025-05-22 20:10:35,521 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/1.Harry_Potter_and_the_Half_Blood_Prince
+2025-05-22 20:10:36,633 - INFO - Fetching details from https://www.goodreads.com/book/show/2.Harry_Potter_and_the_Order_of_the_Phoenix
+2025-05-22 20:10:37,905 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/2.Harry_Potter_and_the_Order_of_the_Phoenix
+2025-05-22 20:10:38,981 - INFO - Fetching details from https://www.goodreads.com/book/show/136251.Harry_Potter_and_the_Deathly_Hallows
+2025-05-22 20:10:40,211 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/136251.Harry_Potter_and_the_Deathly_Hallows
+2025-05-22 20:10:41,282 - INFO - Fetching details from https://www.goodreads.com/book/show/28186.The_Sea_of_Monsters
+2025-05-22 20:10:42,612 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/28186.The_Sea_of_Monsters
+2025-05-22 20:10:43,676 - INFO - Fetching details from https://www.goodreads.com/book/show/561456.The_Titan_s_Curse
+2025-05-22 20:10:45,403 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/561456.The_Titan_s_Curse
+2025-05-22 20:10:46,466 - INFO - Fetching details from https://www.goodreads.com/book/show/2120932.The_Battle_of_the_Labyrinth
+2025-05-22 20:10:47,976 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/2120932.The_Battle_of_the_Labyrinth
+2025-05-22 20:10:49,043 - INFO - Fetching details from https://www.goodreads.com/book/show/968.The_da_Vinci_Code
+2025-05-22 20:10:50,470 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/968.The_da_Vinci_Code
+2025-05-22 20:10:51,535 - INFO - Fetching details from https://www.goodreads.com/book/show/18144590-the-alchemist
+2025-05-22 20:10:52,840 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/18144590-the-alchemist
+2025-05-22 20:10:53,917 - INFO - Fetching details from https://www.goodreads.com/book/show/11735983-insurgent
+2025-05-22 20:10:56,367 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/11735983-insurgent
+2025-05-22 20:10:57,437 - INFO - Fetching details from https://www.goodreads.com/book/show/6.Harry_Potter_and_the_Goblet_of_Fire
+2025-05-22 20:10:58,712 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/6.Harry_Potter_and_the_Goblet_of_Fire
+2025-05-22 20:10:59,778 - INFO - Fetching details from https://www.goodreads.com/book/show/15881.Harry_Potter_and_the_Chamber_of_Secrets
+2025-05-22 20:11:01,306 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/15881.Harry_Potter_and_the_Chamber_of_Secrets
+2025-05-22 20:11:02,372 - INFO - Fetching details from https://www.goodreads.com/book/show/13335037-divergent
+2025-05-22 20:11:03,793 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/13335037-divergent
+2025-05-22 20:11:04,876 - INFO - Fetching details from https://www.goodreads.com/book/show/5.Harry_Potter_and_the_Prisoner_of_Azkaban
+2025-05-22 20:11:07,281 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/5.Harry_Potter_and_the_Prisoner_of_Azkaban
+2025-05-22 20:11:08,349 - INFO - Fetching details from https://www.goodreads.com/book/show/61439040-1984
+2025-05-22 20:11:09,717 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/61439040-1984
+2025-05-22 20:11:10,792 - INFO - Fetching details from https://www.goodreads.com/book/show/11870085-the-fault-in-our-stars
+2025-05-22 20:11:12,251 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/11870085-the-fault-in-our-stars
+2025-05-22 20:11:13,326 - INFO - Fetching details from https://www.goodreads.com/book/show/1885.Pride_and_Prejudice
+2025-05-22 20:11:14,709 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/1885.Pride_and_Prejudice
+2025-05-22 20:11:15,772 - INFO - Fetching details from https://www.goodreads.com/book/show/890.Of_Mice_and_Men
+2025-05-22 20:11:16,893 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/890.Of_Mice_and_Men
+2025-05-22 20:11:17,963 - INFO - Fetching details from https://www.goodreads.com/book/show/960.Angels_Demons
+2025-05-22 20:11:19,123 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/960.Angels_Demons
+2025-05-22 20:11:20,192 - INFO - Fetching details from https://www.goodreads.com/book/show/17587594-dan-brown-inferno-robert-langdon-unofficial-guide
+2025-05-22 20:11:21,904 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/17587594-dan-brown-inferno-robert-langdon-unofficial-guide
+2025-05-22 20:11:22,957 - INFO - Fetching details from https://www.goodreads.com/book/show/100247.Vagabonding
+2025-05-22 20:11:24,674 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/100247.Vagabonding
+2025-05-22 20:11:25,736 - INFO - Fetching details from https://www.goodreads.com/book/show/70401.On_the_Road
+2025-05-22 20:11:27,084 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/70401.On_the_Road
+2025-05-22 20:11:28,149 - INFO - Fetching details from https://www.goodreads.com/book/show/247972.Lonesome_Traveller
+2025-05-22 20:11:29,895 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/247972.Lonesome_Traveller
+2025-05-22 20:11:30,950 - INFO - Fetching details from https://www.goodreads.com/book/show/28439490-at-home-in-the-world
+2025-05-22 20:11:32,527 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/28439490-at-home-in-the-world
+2025-05-22 20:11:33,582 - INFO - Fetching details from https://www.goodreads.com/book/show/44767458-dune
+2025-05-22 20:11:34,913 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/44767458-dune
+2025-05-22 20:11:35,980 - INFO - Fetching details from https://www.goodreads.com/book/show/493.My_Inventions
+2025-05-22 20:11:37,479 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/493.My_Inventions
+2025-05-22 20:11:38,536 - INFO - Fetching details from https://www.goodreads.com/book/show/61535.The_Selfish_Gene
+2025-05-22 20:11:39,804 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/61535.The_Selfish_Gene
+2025-05-22 20:11:40,869 - INFO - Fetching details from https://www.goodreads.com/book/show/9717.The_Unbearable_Lightness_of_Being
+2025-05-22 20:11:42,071 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/9717.The_Unbearable_Lightness_of_Being
+2025-05-22 20:11:43,144 - INFO - Fetching details from https://www.goodreads.com/book/show/375802.Ender_s_Game
+2025-05-22 20:11:44,545 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/375802.Ender_s_Game
+2025-05-22 20:11:45,613 - INFO - Fetching details from https://www.goodreads.com/book/show/7967.Speaker_for_the_Dead
+2025-05-22 20:11:47,032 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7967.Speaker_for_the_Dead
+2025-05-22 20:11:48,102 - INFO - Fetching details from https://www.goodreads.com/book/show/9532.Ender_s_Shadow
+2025-05-22 20:11:49,815 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/9532.Ender_s_Shadow
+2025-05-22 20:11:50,886 - INFO - Fetching details from https://www.goodreads.com/book/show/8648.Xenocide
+2025-05-22 20:11:52,416 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/8648.Xenocide
+2025-05-22 20:11:53,479 - INFO - Fetching details from https://www.goodreads.com/book/show/9534.Shadow_of_the_Hegemon
+2025-05-22 20:11:54,929 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/9534.Shadow_of_the_Hegemon
+2025-05-22 20:11:56,010 - INFO - Fetching details from https://www.goodreads.com/book/show/31360.Children_of_the_Mind
+2025-05-22 20:11:57,206 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/31360.Children_of_the_Mind
+2025-05-22 20:11:58,267 - INFO - Fetching details from https://www.goodreads.com/book/show/8647.Shadow_of_the_Giant
+2025-05-22 20:11:59,475 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/8647.Shadow_of_the_Giant
+2025-05-22 20:12:00,547 - INFO - Fetching details from https://www.goodreads.com/book/show/3220405-ender-in-exile
+2025-05-22 20:12:02,049 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/3220405-ender-in-exile
+2025-05-22 20:12:03,116 - INFO - Fetching details from https://www.goodreads.com/book/show/7108926-the-last-shadow
+2025-05-22 20:12:04,562 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7108926-the-last-shadow
+2025-05-22 20:12:05,621 - INFO - Fetching details from https://www.goodreads.com/book/show/52716719-the-next-fifty-things-that-made-the-modern-economy
+2025-05-22 20:12:07,112 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/52716719-the-next-fifty-things-that-made-the-modern-economy
+2025-05-22 20:12:08,167 - INFO - Fetching details from https://www.goodreads.com/book/show/59425563-money
+2025-05-22 20:12:09,851 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/59425563-money
+2025-05-22 20:12:10,914 - INFO - Fetching details from https://www.goodreads.com/book/show/24874318-socrates-defence
+2025-05-22 20:12:12,808 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/24874318-socrates-defence
+2025-05-22 20:12:13,874 - INFO - Fetching details from https://www.goodreads.com/book/show/4556058-the-last-olympian
+2025-05-22 20:12:15,594 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/4556058-the-last-olympian
+2025-05-22 20:12:16,671 - INFO - Fetching details from https://www.goodreads.com/book/show/3992598-the-demigod-files
+2025-05-22 20:12:18,586 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/3992598-the-demigod-files
+2025-05-22 20:12:19,651 - INFO - Fetching details from https://www.goodreads.com/book/show/20829994-percy-jackson-s-greek-gods
+2025-05-22 20:12:21,618 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/20829994-percy-jackson-s-greek-gods
+2025-05-22 20:12:22,681 - INFO - Fetching details from https://www.goodreads.com/book/show/23349901-percy-jackson-s-greek-heroes
+2025-05-22 20:12:24,272 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/23349901-percy-jackson-s-greek-heroes
+2025-05-22 20:12:25,339 - INFO - Fetching details from https://www.goodreads.com/book/show/7736182-the-lost-hero
+2025-05-22 20:12:26,875 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7736182-the-lost-hero
+2025-05-22 20:12:27,988 - INFO - Fetching details from https://www.goodreads.com/book/show/12127750-the-mark-of-athena
+2025-05-22 20:12:29,774 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/12127750-the-mark-of-athena
+2025-05-22 20:12:30,868 - INFO - Fetching details from https://www.goodreads.com/book/show/9520360-the-son-of-neptune
+2025-05-22 20:12:33,316 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/9520360-the-son-of-neptune
+2025-05-22 20:12:34,386 - INFO - Fetching details from https://www.goodreads.com/book/show/12127810-the-house-of-hades
+2025-05-22 20:12:35,877 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/12127810-the-house-of-hades
+2025-05-22 20:12:36,950 - INFO - Fetching details from https://www.goodreads.com/book/show/7090447-the-red-pyramid
+2025-05-22 20:12:38,848 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7090447-the-red-pyramid
+2025-05-22 20:12:39,916 - INFO - Fetching details from https://www.goodreads.com/book/show/18705209-the-blood-of-olympus
+2025-05-22 20:12:41,822 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/18705209-the-blood-of-olympus
+2025-05-22 20:12:42,897 - INFO - Fetching details from https://www.goodreads.com/book/show/9067850-the-throne-of-fire
+2025-05-22 20:12:44,238 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/9067850-the-throne-of-fire
+2025-05-22 20:12:45,299 - INFO - Fetching details from https://www.goodreads.com/book/show/12893742-the-serpent-s-shadow
+2025-05-22 20:12:47,024 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/12893742-the-serpent-s-shadow
+2025-05-22 20:12:48,088 - INFO - Fetching details from https://www.goodreads.com/book/show/161744.Common_Sense
+2025-05-22 20:12:49,695 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/161744.Common_Sense
+2025-05-22 20:12:50,757 - INFO - Fetching details from https://www.goodreads.com/book/show/42352427-64-geeks
+2025-05-22 20:12:52,370 - INFO - Found 2 genres for book: https://www.goodreads.com/book/show/42352427-64-geeks
+2025-05-22 20:12:53,391 - INFO - Fetching details from https://www.goodreads.com/book/show/9969571-ready-player-one
+2025-05-22 20:12:54,657 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/9969571-ready-player-one
+2025-05-22 20:12:55,727 - INFO - Fetching details from https://www.goodreads.com/book/show/13496.A_Game_of_Thrones
+2025-05-22 20:12:57,398 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/13496.A_Game_of_Thrones
+2025-05-22 20:12:58,472 - INFO - Fetching details from https://www.goodreads.com/book/show/2049993.Airman
+2025-05-22 20:13:00,791 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/2049993.Airman
+2025-05-22 20:13:01,856 - INFO - Fetching details from https://www.goodreads.com/book/show/249747.Artemis_Fowl
+2025-05-22 20:13:03,286 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/249747.Artemis_Fowl
+2025-05-22 20:13:04,350 - INFO - Fetching details from https://www.goodreads.com/book/show/7005865-the-atlantis-complex
+2025-05-22 20:13:06,337 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7005865-the-atlantis-complex
+2025-05-22 20:13:07,399 - INFO - Fetching details from https://www.goodreads.com/book/show/37586.The_Lost_Colony
+2025-05-22 20:13:09,538 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/37586.The_Lost_Colony
+2025-05-22 20:13:10,602 - INFO - Fetching details from https://www.goodreads.com/book/show/114955.The_Arctic_Incident
+2025-05-22 20:13:12,327 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/114955.The_Arctic_Incident
+2025-05-22 20:13:13,399 - INFO - Fetching details from https://www.goodreads.com/book/show/114954.The_Opal_Deception
+2025-05-22 20:13:15,423 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/114954.The_Opal_Deception
+2025-05-22 20:13:16,496 - INFO - Fetching details from https://www.goodreads.com/book/show/227865.The_Eternity_Code
+2025-05-22 20:13:19,698 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/227865.The_Eternity_Code
+2025-05-22 20:13:20,769 - INFO - Fetching details from https://www.goodreads.com/book/show/2179276.The_Time_Paradox
+2025-05-22 20:13:23,084 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/2179276.The_Time_Paradox
+2025-05-22 20:13:24,149 - INFO - Fetching details from https://www.goodreads.com/book/show/9307674-the-last-guardian
+2025-05-22 20:13:26,792 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/9307674-the-last-guardian
+2025-05-22 20:13:27,855 - INFO - Fetching details from https://www.goodreads.com/book/show/904896.The_Seventh_Dwarf
+2025-05-22 20:13:29,911 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/904896.The_Seventh_Dwarf
+2025-05-22 20:13:30,966 - INFO - Fetching details from https://www.goodreads.com/book/show/21847967-the-city-of-ember-the-people-of-sparks-the-prophet-of-yonwood-the
+2025-05-22 20:13:32,906 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/21847967-the-city-of-ember-the-people-of-sparks-the-prophet-of-yonwood-the
+2025-05-22 20:13:33,966 - INFO - Fetching details from https://www.goodreads.com/book/show/307791.The_City_of_Ember
+2025-05-22 20:13:35,150 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/307791.The_City_of_Ember
+2025-05-22 20:13:36,209 - INFO - Fetching details from https://www.goodreads.com/book/show/3467.The_People_of_Sparks
+2025-05-22 20:13:37,779 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/3467.The_People_of_Sparks
+2025-05-22 20:13:38,838 - INFO - Fetching details from https://www.goodreads.com/book/show/2493973.The_Diamond_of_Darkhold
+2025-05-22 20:13:40,627 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/2493973.The_Diamond_of_Darkhold
+2025-05-22 20:13:41,685 - INFO - Fetching details from https://www.goodreads.com/book/show/207034.The_Prophet_of_Yonwood
+2025-05-22 20:13:42,984 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/207034.The_Prophet_of_Yonwood
+2025-05-22 20:13:44,051 - INFO - Fetching details from https://www.goodreads.com/book/show/35510008-this-is-going-to-hurt
+2025-05-22 20:13:45,923 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/35510008-this-is-going-to-hurt
+2025-05-22 20:13:46,985 - INFO - Fetching details from https://www.goodreads.com/book/show/18007564-the-martian
+2025-05-22 20:13:48,472 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/18007564-the-martian
+2025-05-22 20:13:49,549 - INFO - Fetching details from https://www.goodreads.com/book/show/17402605-the-alchemyst
+2025-05-22 20:13:51,153 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/17402605-the-alchemyst
+2025-05-22 20:13:52,214 - INFO - Fetching details from https://www.goodreads.com/book/show/1099301.The_Name_of_This_Book_Is_Secret
+2025-05-22 20:13:53,834 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/1099301.The_Name_of_This_Book_Is_Secret
+2025-05-22 20:13:54,945 - INFO - Fetching details from https://www.goodreads.com/book/show/2402971.The_Magician
+2025-05-22 20:13:57,203 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/2402971.The_Magician
+2025-05-22 20:13:58,269 - INFO - Fetching details from https://www.goodreads.com/book/show/4588949-the-sorceress
+2025-05-22 20:13:59,829 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/4588949-the-sorceress
+2025-05-22 20:14:00,892 - INFO - Fetching details from https://www.goodreads.com/book/show/6693332-the-necromancer
+2025-05-22 20:14:05,417 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/6693332-the-necromancer
+2025-05-22 20:14:06,476 - INFO - Fetching details from https://www.goodreads.com/book/show/7939759-this-isn-t-what-it-looks-like
+2025-05-22 20:14:08,806 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7939759-this-isn-t-what-it-looks-like
+2025-05-22 20:14:09,888 - INFO - Fetching details from https://www.goodreads.com/book/show/8458018-the-warlock
+2025-05-22 20:14:11,725 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/8458018-the-warlock
+2025-05-22 20:14:12,799 - INFO - Fetching details from https://www.goodreads.com/book/show/10757817-you-have-to-stop-this
+2025-05-22 20:14:14,730 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/10757817-you-have-to-stop-this
+2025-05-22 20:14:15,790 - INFO - Fetching details from https://www.goodreads.com/book/show/2657.To_Kill_a_Mockingbird
+2025-05-22 20:14:17,087 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/2657.To_Kill_a_Mockingbird
+2025-05-22 20:14:18,150 - INFO - Fetching details from https://www.goodreads.com/book/show/7144.Crime_and_Punishment
+2025-05-22 20:14:19,473 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7144.Crime_and_Punishment
+2025-05-22 20:14:20,538 - INFO - Fetching details from https://www.goodreads.com/book/show/18135.Romeo_and_Juliet
+2025-05-22 20:14:22,113 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/18135.Romeo_and_Juliet
+2025-05-22 20:14:23,176 - INFO - Fetching details from https://www.goodreads.com/book/show/24178.Charlotte_s_Web
+2025-05-22 20:14:24,560 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/24178.Charlotte_s_Web
+2025-05-22 20:14:25,624 - INFO - Fetching details from https://www.goodreads.com/book/show/10572.A_Clash_of_Kings
+2025-05-22 20:14:29,684 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/10572.A_Clash_of_Kings
+2025-05-22 20:14:30,755 - INFO - Fetching details from https://www.goodreads.com/book/show/62291.A_Storm_of_Swords
+2025-05-22 20:14:32,813 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/62291.A_Storm_of_Swords
+2025-05-22 20:14:33,883 - INFO - Fetching details from https://www.goodreads.com/book/show/13497.A_Feast_for_Crows
+2025-05-22 20:14:35,403 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/13497.A_Feast_for_Crows
+2025-05-22 20:14:36,468 - INFO - Fetching details from https://www.goodreads.com/book/show/10664113-a-dance-with-dragons
+2025-05-22 20:14:37,916 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/10664113-a-dance-with-dragons
+2025-05-22 20:14:38,987 - INFO - Fetching details from https://www.goodreads.com/book/show/23878.Chronicle_of_a_Death_Foretold
+2025-05-22 20:14:40,455 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/23878.Chronicle_of_a_Death_Foretold
+2025-05-22 20:14:41,517 - INFO - Fetching details from https://www.goodreads.com/book/show/9516.Persepolis_The_story_of_a_childhood
+2025-05-22 20:14:42,853 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/9516.Persepolis_The_story_of_a_childhood
+2025-05-22 20:14:43,917 - INFO - Fetching details from https://www.goodreads.com/book/show/34066798-a-gentleman-in-moscow
+2025-05-22 20:14:49,269 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/34066798-a-gentleman-in-moscow
+2025-05-22 20:14:50,338 - INFO - Fetching details from https://www.goodreads.com/book/show/2956.The_Adventures_of_Huckleberry_Finn
+2025-05-22 20:14:51,988 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/2956.The_Adventures_of_Huckleberry_Finn
+2025-05-22 20:14:53,058 - INFO - Fetching details from https://www.goodreads.com/book/show/1420.Hamlet
+2025-05-22 20:14:54,261 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/1420.Hamlet
+2025-05-22 20:14:55,328 - INFO - Fetching details from https://www.goodreads.com/book/show/8852.Macbeth
+2025-05-22 20:14:56,859 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/8852.Macbeth
+2025-05-22 20:14:57,928 - INFO - Fetching details from https://www.goodreads.com/book/show/1622.A_Midsummer_Night_s_Dream
+2025-05-22 20:14:59,136 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/1622.A_Midsummer_Night_s_Dream
+2025-05-22 20:15:00,205 - INFO - Fetching details from https://www.goodreads.com/book/show/4214.Life_of_Pi
+2025-05-22 20:15:02,351 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/4214.Life_of_Pi
+2025-05-22 20:15:03,420 - INFO - Fetching details from https://www.goodreads.com/book/show/23772.Green_Eggs_and_Ham
+2025-05-22 20:15:05,142 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/23772.Green_Eggs_and_Ham
+2025-05-22 20:15:06,202 - INFO - Fetching details from https://www.goodreads.com/book/show/113436.Eragon
+2025-05-22 20:15:07,728 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/113436.Eragon
+2025-05-22 20:15:08,801 - INFO - Fetching details from https://www.goodreads.com/book/show/10365.Where_the_Red_Fern_Grows
+2025-05-22 20:15:10,399 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/10365.Where_the_Red_Fern_Grows
+2025-05-22 20:15:11,465 - INFO - Fetching details from https://www.goodreads.com/book/show/38709.Holes
+2025-05-22 20:15:12,650 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/38709.Holes
+2025-05-22 20:15:13,711 - INFO - Fetching details from https://www.goodreads.com/book/show/233093.The_Cat_in_the_Hat
+2025-05-22 20:15:15,240 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/233093.The_Cat_in_the_Hat
+2025-05-22 20:15:16,301 - INFO - Fetching details from https://www.goodreads.com/book/show/4900.Heart_of_Darkness
+2025-05-22 20:15:17,757 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/4900.Heart_of_Darkness
+2025-05-22 20:15:18,823 - INFO - Fetching details from https://www.goodreads.com/book/show/40940121-bridge-to-terabithia
+2025-05-22 20:15:19,977 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/40940121-bridge-to-terabithia
+2025-05-22 20:15:21,045 - INFO - Fetching details from https://www.goodreads.com/book/show/7763.The_Joy_Luck_Club
+2025-05-22 20:15:22,204 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7763.The_Joy_Luck_Club
+2025-05-22 20:15:23,266 - INFO - Fetching details from https://www.goodreads.com/book/show/191139.Oh_the_Places_You_ll_Go_
+2025-05-22 20:15:24,727 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/191139.Oh_the_Places_You_ll_Go_
+2025-05-22 20:15:25,789 - INFO - Fetching details from https://www.goodreads.com/book/show/10799.A_Farewell_to_Arms
+2025-05-22 20:15:27,526 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/10799.A_Farewell_to_Arms
+2025-05-22 20:15:28,594 - INFO - Fetching details from https://www.goodreads.com/book/show/48855.The_Diary_of_a_Young_Girl
+2025-05-22 20:15:30,279 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/48855.The_Diary_of_a_Young_Girl
+2025-05-22 20:15:31,345 - INFO - Fetching details from https://www.goodreads.com/book/show/13623848-the-song-of-achilles
+2025-05-22 20:15:32,878 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/13623848-the-song-of-achilles
+2025-05-22 20:15:33,946 - INFO - Fetching details from https://www.goodreads.com/book/show/3950967-the-tales-of-beedle-the-bard
+2025-05-22 20:15:36,096 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/3950967-the-tales-of-beedle-the-bard
+2025-05-22 20:15:37,156 - INFO - Fetching details from https://www.goodreads.com/book/show/683406.Don_t_Call_Me_Ishmael_
+2025-05-22 20:15:40,094 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/683406.Don_t_Call_Me_Ishmael_
+2025-05-22 20:15:41,150 - INFO - Fetching details from https://www.goodreads.com/book/show/7747374-i-am-number-four
+2025-05-22 20:15:43,124 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7747374-i-am-number-four
+2025-05-22 20:15:44,191 - INFO - Fetching details from https://www.goodreads.com/book/show/8659601-the-power-of-six
+2025-05-22 20:15:45,779 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/8659601-the-power-of-six
+2025-05-22 20:15:46,847 - INFO - Fetching details from https://www.goodreads.com/book/show/12971616-the-rise-of-nine
+2025-05-22 20:15:48,856 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/12971616-the-rise-of-nine
+2025-05-22 20:15:49,932 - INFO - Fetching details from https://www.goodreads.com/book/show/15861491-the-fall-of-five
+2025-05-22 20:15:51,685 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/15861491-the-fall-of-five
+2025-05-22 20:15:52,744 - INFO - Fetching details from https://www.goodreads.com/book/show/19346451-the-revenge-of-seven
+2025-05-22 20:15:54,294 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/19346451-the-revenge-of-seven
+2025-05-22 20:15:55,353 - INFO - Fetching details from https://www.goodreads.com/book/show/24488476-the-fate-of-ten
+2025-05-22 20:15:58,333 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/24488476-the-fate-of-ten
+2025-05-22 20:15:59,396 - INFO - Fetching details from https://www.goodreads.com/book/show/15638.Cyrano_de_Bergerac
+2025-05-22 20:16:00,748 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/15638.Cyrano_de_Bergerac
+2025-05-22 20:16:01,813 - INFO - Fetching details from https://www.goodreads.com/book/show/11334.Song_of_Solomon
+2025-05-22 20:16:04,042 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/11334.Song_of_Solomon
+2025-05-22 20:16:05,116 - INFO - Fetching details from https://www.goodreads.com/book/show/280111.Holy_Bible
+2025-05-22 20:16:06,519 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/280111.Holy_Bible
+2025-05-22 20:16:07,583 - INFO - Fetching details from https://www.goodreads.com/book/show/270730.Crank
+2025-05-22 20:16:09,725 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/270730.Crank
+2025-05-22 20:16:10,789 - INFO - Fetching details from https://www.goodreads.com/book/show/18521.A_Room_of_One_s_Own
+2025-05-22 20:16:12,349 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/18521.A_Room_of_One_s_Own
+2025-05-22 20:16:13,419 - INFO - Fetching details from https://www.goodreads.com/book/show/991197.The_Complete_Persepolis
+2025-05-22 20:16:15,251 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/991197.The_Complete_Persepolis
+2025-05-22 20:16:16,315 - INFO - Fetching details from https://www.goodreads.com/book/show/37190.The_Tale_of_Despereaux
+2025-05-22 20:16:17,594 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/37190.The_Tale_of_Despereaux
+2025-05-22 20:16:18,654 - INFO - Fetching details from https://www.goodreads.com/book/show/13539044-the-silver-linings-playbook
+2025-05-22 20:16:20,098 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/13539044-the-silver-linings-playbook
+2025-05-22 20:16:21,162 - INFO - Fetching details from https://www.goodreads.com/book/show/130580.Old_Yeller
+2025-05-22 20:16:22,733 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/130580.Old_Yeller
+2025-05-22 20:16:23,796 - INFO - Fetching details from https://www.goodreads.com/book/show/389627.Diary_of_a_Wimpy_Kid
+2025-05-22 20:16:24,999 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/389627.Diary_of_a_Wimpy_Kid
+2025-05-22 20:16:26,061 - INFO - Fetching details from https://www.goodreads.com/book/show/7572.Even_Cowgirls_Get_the_Blues
+2025-05-22 20:16:28,088 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7572.Even_Cowgirls_Get_the_Blues
+2025-05-22 20:16:29,147 - INFO - Fetching details from https://www.goodreads.com/book/show/8519822-the-enchantress
+2025-05-22 20:16:30,777 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/8519822-the-enchantress
+2025-05-22 20:16:31,839 - INFO - Fetching details from https://www.goodreads.com/book/show/157993.The_Little_Prince
+2025-05-22 20:16:33,401 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/157993.The_Little_Prince
+2025-05-22 20:16:34,468 - INFO - Fetching details from https://www.goodreads.com/book/show/6288.The_Road
+2025-05-22 20:16:35,945 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/6288.The_Road
+2025-05-22 20:16:37,012 - INFO - Fetching details from https://www.goodreads.com/book/show/1381.The_Odyssey
+2025-05-22 20:16:39,288 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/1381.The_Odyssey
+2025-05-22 20:16:40,368 - INFO - Fetching details from https://www.goodreads.com/book/show/1618.The_Curious_Incident_of_the_Dog_in_the_Night_Time
+2025-05-22 20:16:41,914 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/1618.The_Curious_Incident_of_the_Dog_in_the_Night_Time
+2025-05-22 20:16:42,978 - INFO - Fetching details from https://www.goodreads.com/book/show/1375.The_Iliad_The_Odyssey
+2025-05-22 20:16:44,513 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/1375.The_Iliad_The_Odyssey
+2025-05-22 20:16:45,570 - INFO - Fetching details from https://www.goodreads.com/book/show/7733.Gulliver_s_Travels
+2025-05-22 20:16:47,163 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7733.Gulliver_s_Travels
+2025-05-22 20:16:48,229 - INFO - Fetching details from https://www.goodreads.com/book/show/77013.As_I_Lay_Dying
+2025-05-22 20:16:49,471 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/77013.As_I_Lay_Dying
+2025-05-22 20:16:50,539 - INFO - Fetching details from https://www.goodreads.com/book/show/18373.Flowers_for_Algernon
+2025-05-22 20:16:52,637 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/18373.Flowers_for_Algernon
+2025-05-22 20:16:53,701 - INFO - Fetching details from https://www.goodreads.com/book/show/55051662-genius-makers
+2025-05-22 20:16:57,030 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/55051662-genius-makers
+2025-05-22 20:16:58,089 - INFO - Fetching details from https://www.goodreads.com/book/show/1845.Into_the_Wild
+2025-05-22 20:16:59,543 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/1845.Into_the_Wild
+2025-05-22 20:17:00,605 - INFO - Fetching details from https://www.goodreads.com/book/show/75560036-technofeudalism
+2025-05-22 20:17:02,445 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/75560036-technofeudalism
+2025-05-22 20:17:03,510 - INFO - Fetching details from https://www.goodreads.com/book/show/61173385-the-market-maker-s-matrix
+2025-05-22 20:17:05,334 - WARNING - No genres found for book: https://www.goodreads.com/book/show/61173385-the-market-maker-s-matrix
+2025-05-22 20:17:06,344 - INFO - Fetching details from https://www.goodreads.com/book/show/4845.Code_Complete
+2025-05-22 20:17:08,400 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/4845.Code_Complete
+2025-05-22 20:17:09,460 - INFO - Fetching details from https://www.goodreads.com/book/show/768080.C_Primer
+2025-05-22 20:17:10,960 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/768080.C_Primer
+2025-05-22 20:17:12,014 - INFO - Fetching details from https://www.goodreads.com/book/show/195984759-a-brief-history-of-central-banking
+2025-05-22 20:17:13,208 - INFO - Found 1 genres for book: https://www.goodreads.com/book/show/195984759-a-brief-history-of-central-banking
+2025-05-22 20:17:14,234 - INFO - Fetching details from https://www.goodreads.com/book/show/56268989-the-bond-king
+2025-05-22 20:17:16,180 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/56268989-the-bond-king
+2025-05-22 20:17:17,239 - INFO - Fetching details from https://www.goodreads.com/book/show/26597296-money-changes-everything
+2025-05-22 20:17:19,025 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/26597296-money-changes-everything
+2025-05-22 20:17:20,077 - INFO - Fetching details from https://www.goodreads.com/book/show/17307317-money
+2025-05-22 20:17:21,709 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/17307317-money
+2025-05-22 20:17:22,770 - INFO - Fetching details from https://www.goodreads.com/book/show/45731395-the-deficit-myth
+2025-05-22 20:17:24,690 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/45731395-the-deficit-myth
+2025-05-22 20:17:25,753 - INFO - Fetching details from https://www.goodreads.com/book/show/59056157-the-price-of-time
+2025-05-22 20:17:27,652 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/59056157-the-price-of-time
+2025-05-22 20:17:28,713 - INFO - Fetching details from https://www.goodreads.com/book/show/23692271-sapiens
+2025-05-22 20:17:30,147 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/23692271-sapiens
+2025-05-22 20:17:31,214 - INFO - Fetching details from https://www.goodreads.com/book/show/1202.Freakonomics
+2025-05-22 20:17:32,499 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/1202.Freakonomics
+2025-05-22 20:17:33,564 - INFO - Fetching details from https://www.goodreads.com/book/show/602473.Atop_an_Underwood
+2025-05-22 20:17:35,105 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/602473.Atop_an_Underwood
+2025-05-22 20:17:36,158 - INFO - Fetching details from https://www.goodreads.com/book/show/11525.1_000_Places_to_See_Before_You_Die
+2025-05-22 20:17:38,330 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/11525.1_000_Places_to_See_Before_You_Die
+2025-05-22 20:17:39,391 - INFO - Fetching details from https://www.goodreads.com/book/show/63689.The_Great_Railway_Bazaar
+2025-05-22 20:17:41,063 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/63689.The_Great_Railway_Bazaar
+2025-05-22 20:17:42,137 - INFO - Fetching details from https://www.goodreads.com/book/show/28110891-atlas-obscura
+2025-05-22 20:17:43,815 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/28110891-atlas-obscura
+2025-05-22 20:17:44,884 - INFO - Fetching details from https://www.goodreads.com/book/show/130515.The_Old_Patagonian_Express
+2025-05-22 20:17:46,752 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/130515.The_Old_Patagonian_Express
+2025-05-22 20:17:47,817 - INFO - Fetching details from https://www.goodreads.com/book/show/270032.Seven_Years_in_Tibet
+2025-05-22 20:17:49,898 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/270032.Seven_Years_in_Tibet
+2025-05-22 20:17:50,959 - INFO - Fetching details from https://www.goodreads.com/book/show/54479.Around_the_World_in_Eighty_Days
+2025-05-22 20:17:52,197 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/54479.Around_the_World_in_Eighty_Days
+2025-05-22 20:17:53,265 - INFO - Fetching details from https://www.goodreads.com/book/show/30649506-at-home-in-the-world
+2025-05-22 20:17:54,997 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/30649506-at-home-in-the-world
+2025-05-22 20:17:56,055 - INFO - Fetching details from https://www.goodreads.com/book/show/11468377-thinking-fast-and-slow
+2025-05-22 20:17:57,685 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/11468377-thinking-fast-and-slow
+2025-05-22 20:17:58,755 - INFO - Fetching details from https://www.goodreads.com/book/show/472331.Watchmen
+2025-05-22 20:18:00,381 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/472331.Watchmen
+2025-05-22 20:18:01,467 - INFO - Fetching details from https://www.goodreads.com/book/show/13.The_Ultimate_Hitchhiker_s_Guide_to_the_Galaxy
+2025-05-22 20:18:03,554 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/13.The_Ultimate_Hitchhiker_s_Guide_to_the_Galaxy
+2025-05-22 20:18:04,625 - INFO - Fetching details from https://www.goodreads.com/book/show/7745.Fear_and_Loathing_in_Las_Vegas
+2025-05-22 20:18:06,635 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7745.Fear_and_Loathing_in_Las_Vegas
+2025-05-22 20:18:07,702 - INFO - Fetching details from https://www.goodreads.com/book/show/28862.The_Prince
+2025-05-22 20:18:09,933 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/28862.The_Prince
+2025-05-22 20:18:11,012 - INFO - Fetching details from https://www.goodreads.com/book/show/30289.The_Republic
+2025-05-22 20:18:12,407 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/30289.The_Republic
+2025-05-22 20:18:13,474 - INFO - Fetching details from https://www.goodreads.com/book/show/6882.Papillon
+2025-05-22 20:18:15,058 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/6882.Papillon
+2025-05-22 20:18:16,119 - INFO - Fetching details from https://www.goodreads.com/book/show/6493208-the-immortal-life-of-henrietta-lacks
+2025-05-22 20:18:17,710 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/6493208-the-immortal-life-of-henrietta-lacks
+2025-05-22 20:18:18,853 - INFO - Fetching details from https://www.goodreads.com/book/show/8694.Life_the_Universe_and_Everything
+2025-05-22 20:18:20,976 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/8694.Life_the_Universe_and_Everything
+2025-05-22 20:18:22,049 - INFO - Fetching details from https://www.goodreads.com/book/show/19351.The_Epic_of_Gilgamesh
+2025-05-22 20:18:24,416 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/19351.The_Epic_of_Gilgamesh
+2025-05-22 20:18:25,523 - INFO - Fetching details from https://www.goodreads.com/book/show/56470423-an-ugly-truth
+2025-05-22 20:18:27,606 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/56470423-an-ugly-truth
+2025-05-22 20:18:28,674 - INFO - Fetching details from https://www.goodreads.com/book/show/386162.The_Hitchhiker_s_Guide_to_the_Galaxy
+2025-05-22 20:18:30,056 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/386162.The_Hitchhiker_s_Guide_to_the_Galaxy
+2025-05-22 20:18:31,135 - INFO - Fetching details from https://www.goodreads.com/book/show/4667024-the-help
+2025-05-22 20:18:32,993 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/4667024-the-help
+2025-05-22 20:18:34,064 - INFO - Fetching details from https://www.goodreads.com/book/show/7332.The_Silmarillion
+2025-05-22 20:18:35,820 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/7332.The_Silmarillion
+2025-05-22 20:18:36,897 - INFO - Fetching details from https://www.goodreads.com/book/show/15645.Inferno
+2025-05-22 20:18:38,478 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/15645.Inferno
+2025-05-22 20:18:39,547 - INFO - Fetching details from https://www.goodreads.com/book/show/38728977-the-molecule-of-more
+2025-05-22 20:18:40,859 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/38728977-the-molecule-of-more
+2025-05-22 20:18:41,922 - INFO - Fetching details from https://www.goodreads.com/book/show/16902.Walden_or_Life_in_the_Woods
+2025-05-22 20:18:43,194 - INFO - Found 7 genres for book: https://www.goodreads.com/book/show/16902.Walden_or_Life_in_the_Woods
+2025-05-22 20:18:44,259 - INFO - Updated 191 books with genres from Goodreads
+2025-05-22 20:18:44,263 - INFO - Applying fallback genre extraction for 1 books
+2025-05-22 20:18:44,271 - INFO - After fallback extraction: 0 books still missing genres
+2025-05-22 20:18:44,294 - INFO - Saved updated data with fixed genres
+2025-05-22 20:22:39,506 - INFO - Enriching book data with additional details...
+2025-05-22 20:22:39,514 - INFO - All books already have genre data
+2025-05-22 20:22:39,514 - INFO - Fetching popular books to improve recommendations...
+2025-05-22 20:22:40,626 - INFO - Fetched 52 popular books
+2025-05-22 20:24:38,254 - INFO - Enriching book data with additional details...
+2025-05-22 20:24:38,255 - INFO - All books already have genre data
+2025-05-22 20:24:38,256 - INFO - Fetching popular books to improve recommendations...
+2025-05-22 20:24:39,427 - INFO - Fetched 52 popular books
+2025-05-22 20:25:03,686 - INFO - Enriching book data with additional details...
+2025-05-22 20:25:03,688 - INFO - All books already have genre data
+2025-05-22 20:25:03,688 - INFO - Fetching popular books to improve recommendations...
+2025-05-22 20:25:04,879 - INFO - Fetched 52 popular books
+2025-05-22 20:26:17,650 - INFO - Enriching book data with additional details...
+2025-05-22 20:26:17,651 - INFO - All books already have genre data
+2025-05-22 20:26:17,651 - INFO - Fetching popular books to improve recommendations...
+2025-05-22 20:26:18,883 - INFO - Fetched 52 popular books
+2025-05-22 20:26:18,889 - INFO - Creating TF-IDF vectors
+2025-05-22 20:26:18,920 - INFO - Calculating similarity matrix
+2025-05-22 20:26:18,926 - INFO - Using 98 books as basis for recommendations
+2025-05-22 20:26:19,043 - INFO - Generated 1 unique recommendations

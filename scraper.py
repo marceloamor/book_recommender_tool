@@ -190,6 +190,7 @@ class GoodreadsScraper:
             Dictionary with additional book details
         """
         try:
+            logger.info(f"Fetching details from {book_url}")
             response = requests.get(book_url, headers=self.headers)
             if response.status_code != 200:
                 logger.warning(f"Failed to fetch book details: {response.status_code}")
@@ -201,23 +202,52 @@ class GoodreadsScraper:
             title_element = soup.select_one("h1#bookTitle")
             title = title_element.text.strip() if title_element else ""
             
-            # Extract genres/shelves
+            # NEW APPROACH: Extract genres from links with "genres" in href
             genres = []
+            genre_links = soup.select("a[href*='genres']")
             
-            # Method 1: Look for genre links
-            genre_elements = soup.select("div.elementList div.left a.actionLinkLite.bookPageGenreLink")
-            for genre_elem in genre_elements[:5]:  # Limit to first 5 genres
-                genre = genre_elem.text.strip()
-                if genre and genre not in genres:
-                    genres.append(genre)
+            # Skip the first link if it's just the "Genres" navigation link
+            start_idx = 0
+            if genre_links and "nav_brws_genres" in genre_links[0].get('href', ''):
+                start_idx = 1
+                
+            for link in genre_links[start_idx:]:
+                genre_text = link.text.strip()
+                if genre_text and len(genre_text) > 1 and genre_text not in genres:
+                    genres.append(genre_text)
             
-            # Method 2: Look for popular shelves
+            # If we still don't have genres, try other methods
             if not genres:
-                shelf_elements = soup.select("a.actionLinkLite.bookPageGenreLink")
-                for shelf_elem in shelf_elements[:5]:
-                    genre = shelf_elem.text.strip()
-                    if genre and genre not in genres:
-                        genres.append(genre)
+                # Try to find links with "shelf/show" in href
+                shelf_links = soup.select("a[href*='shelf/show']")
+                for link in shelf_links:
+                    genre_text = link.text.strip()
+                    # Skip common non-genre shelves
+                    if (genre_text and len(genre_text) > 1 and 
+                        genre_text.lower() not in ["to-read", "currently-reading", "read", "default", "favorites"] and
+                        genre_text not in genres):
+                        genres.append(genre_text)
+            
+            # Log the result
+            if genres:
+                logger.info(f"Found {len(genres)} genres for book: {title or book_url}")
+                for genre in genres:
+                    logger.debug(f"  - {genre}")
+            else:
+                logger.warning(f"No genres found for book: {title or book_url}")
+                
+                # Last resort: Try to extract from URL
+                if "genres" in book_url:
+                    try:
+                        url_parts = book_url.split("/")
+                        for i, part in enumerate(url_parts):
+                            if part == "genres" and i+1 < len(url_parts):
+                                genre = url_parts[i+1].replace("-", " ").title()
+                                if genre and genre not in genres:
+                                    genres.append(genre)
+                                    logger.info(f"Extracted genre from URL: {genre}")
+                    except Exception as e:
+                        logger.error(f"Error extracting genre from URL: {e}")
             
             # Extract description
             description = ""

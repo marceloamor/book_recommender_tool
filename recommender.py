@@ -145,7 +145,7 @@ class BookRecommender:
         # Add description if available (with lower weight)
         all_books["features"] = all_books.apply(
             lambda row: row["features"] + " " + 
-                        (row.get("description", "")[:500] if row.get("description") else ""),
+                        (str(row.get("description", ""))[:500] if row.get("description") else ""),
             axis=1
         )
         
@@ -231,6 +231,70 @@ class BookRecommender:
                     logger.error(f"Error updating book data: {e}")
         else:
             logger.info("All books already have genre data")
+            
+        # Apply fallback genre extraction for books still missing genres
+        self._apply_fallback_genre_extraction()
+            
+    def _apply_fallback_genre_extraction(self):
+        """Extract genres from book titles and descriptions when missing"""
+        missing_genres = self.user_books_df["genres"].apply(lambda x: not x or len(x) == 0).sum()
+        
+        if missing_genres == 0:
+            return
+            
+        logger.info(f"Applying fallback genre extraction for {missing_genres} books")
+        
+        # Common genre keywords to look for
+        genre_keywords = {
+            "Fiction": ["novel", "fiction", "story"],
+            "Fantasy": ["fantasy", "magic", "wizard", "dragon", "mythical", "myth", "fairy"],
+            "Science Fiction": ["sci-fi", "science fiction", "scifi", "space", "futuristic", "alien"],
+            "Mystery": ["mystery", "detective", "crime", "thriller", "suspense"],
+            "Romance": ["romance", "love story", "romantic"],
+            "Horror": ["horror", "scary", "ghost", "haunted", "terror"],
+            "Biography": ["biography", "memoir", "autobiography", "life story"],
+            "History": ["history", "historical", "ancient", "medieval"],
+            "Philosophy": ["philosophy", "philosophical", "ethics", "metaphysics"],
+            "Self-Help": ["self-help", "personal development", "self improvement"],
+            "Business": ["business", "management", "leadership", "entrepreneur"],
+            "Travel": ["travel", "adventure", "journey", "expedition"],
+            "Poetry": ["poetry", "poem", "verse", "sonnet"],
+            "Cooking": ["cooking", "cookbook", "recipe", "food", "baking"],
+            "Art": ["art", "painting", "drawing", "artist"],
+            "Young Adult": ["young adult", "ya", "teen", "teenage"],
+            "Children's": ["children", "kids", "picture book"],
+            "Classic": ["classic", "classics"],
+            "Non-fiction": ["non-fiction", "nonfiction", "true story", "factual"]
+        }
+        
+        for idx, row in self.user_books_df.iterrows():
+            if not row["genres"] or len(row["genres"]) == 0:
+                extracted_genres = []
+                
+                # Combine title and description for analysis
+                text_to_analyze = (row["title"] + " " + row.get("description", "")).lower()
+                
+                # Check for genre keywords
+                for genre, keywords in genre_keywords.items():
+                    for keyword in keywords:
+                        if keyword.lower() in text_to_analyze:
+                            extracted_genres.append(genre)
+                            break
+                
+                # If we found any genres, update the DataFrame
+                if extracted_genres:
+                    self.user_books_df.at[idx, "genres"] = extracted_genres
+                    logger.info(f"Extracted fallback genres for '{row['title']}': {extracted_genres}")
+                else:
+                    # If no genres found, assign a generic "Fiction" or "Non-fiction" based on shelf
+                    if row["shelf"] == "read":
+                        self.user_books_df.at[idx, "genres"] = ["Fiction"]
+                    else:
+                        self.user_books_df.at[idx, "genres"] = ["Unknown"]
+                    
+        # Log the results
+        still_missing = self.user_books_df["genres"].apply(lambda x: not x or len(x) == 0).sum()
+        logger.info(f"After fallback extraction: {still_missing} books still missing genres")
             
     def _fetch_popular_books(self, num_books=100):
         """
