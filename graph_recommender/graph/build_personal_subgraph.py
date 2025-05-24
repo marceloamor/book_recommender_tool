@@ -58,11 +58,19 @@ class PersonalSubgraph:
             if attrs.get('read_by_user', False)
         ]
         
+        # Find external books (books from external datasets)
+        external_nodes = [
+            node for node in base_graph.nodes()
+            if isinstance(node, str) and node.startswith("external_")
+        ]
+        
         if not seed_nodes:
             logger.warning("No seed nodes (books read by user) found in the graph")
             return None
             
         logger.info(f"Found {len(seed_nodes)} seed nodes (books read by user)")
+        if external_nodes:
+            logger.info(f"Found {len(external_nodes)} external book nodes")
         
         # Extract the k-hop subgraph
         nodes_to_keep = set(seed_nodes)
@@ -100,6 +108,12 @@ class PersonalSubgraph:
             if not frontier:
                 logger.info(f"No more nodes to expand at hop {hop}")
                 break
+        
+        # Include external books even if not directly connected
+        if external_nodes and len(nodes_to_keep) < max_nodes:
+            external_to_add = [node for node in external_nodes if node not in nodes_to_keep]
+            logger.info(f"Adding {len(external_to_add)} external books to personal subgraph")
+            nodes_to_keep.update(external_to_add[:max_nodes - len(nodes_to_keep)])
         
         # Extract subgraph with these nodes
         subgraph = base_graph.subgraph(nodes_to_keep).copy()
